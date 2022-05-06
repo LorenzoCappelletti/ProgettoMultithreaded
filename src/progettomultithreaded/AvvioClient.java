@@ -19,17 +19,10 @@ public class AvvioClient
 {
     public static void main(String[] args) 
     {
-        try 
-        {
-            Client cli = new Client(InetAddress.getLocalHost(), 2000); //LocalHost perchè client e server stanno sulla stessa macchina
-            cli.scrivi("scrivo");
-            cli.leggi();
-        } 
-        catch (UnknownHostException ex) 
-        {
-            Logger.getLogger(AvvioClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-      
+       
+            Client cli = new Client("127.0.0.1", 2000); //LocalHost perchè client e server stanno sulla stessa macchina
+ 
+        
     }
            
 }

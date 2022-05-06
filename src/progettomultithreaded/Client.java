@@ -26,7 +26,7 @@ public class Client
     BufferedWriter bw; //write
     BufferedReader br; //read
     
-    public Client(InetAddress ip, int porta) // ip e porta del server
+    public Client(String ip, int porta) // ip e porta del server
     {
         try (Socket so = new Socket(ip, porta))
         {
