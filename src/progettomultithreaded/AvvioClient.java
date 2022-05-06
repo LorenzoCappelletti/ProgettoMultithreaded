@@ -21,7 +21,7 @@ public class AvvioClient
     {
         try 
         {
-            Client cli = new Client(InetAddress.getLocalHost(), 2000);
+            Client cli = new Client(InetAddress.getLocalHost(), 2000); //LocalHost perchè client e server stanno sulla stessa macchina
             cli.scrivi("scrivo");
             cli.leggi();
         } 

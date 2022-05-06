@@ -10,8 +10,10 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,15 +25,36 @@ public class Client
 {
     BufferedWriter bw; //write
     BufferedReader br; //read
-    Socket so;
     
-    public Client(InetAddress ip, int porta)
+    public Client(InetAddress ip, int porta) // ip e porta del server
     {
-        try 
+        try (Socket so = new Socket(ip, porta))
         {
-            so = new Socket(ip, porta);
-            br = new BufferedReader(new InputStreamReader(so.getInputStream())); // inizializzo br
-            bw = new BufferedWriter(new OutputStreamWriter(so.getOutputStream())); // inizializzo bw
+            // writing to server
+            PrintWriter out = new PrintWriter(so.getOutputStream(), true);
+  
+            // reading from server
+            BufferedReader in= new BufferedReader(new InputStreamReader(
+            so.getInputStream()));
+            
+            Scanner sc = new Scanner(System.in);
+            String line = null;
+            while (!"exit".equalsIgnoreCase(line)) 
+            {
+                
+                // reading from user
+                line = sc.nextLine();
+  
+                // sending the user input to server
+                out.println(line);
+                out.flush();
+  
+                // displaying server reply
+                System.out.println("Server replied " + in.readLine());
+            }
+            
+            // closing the scanner object
+            sc.close();
         } 
         catch (IOException ex) 
         {

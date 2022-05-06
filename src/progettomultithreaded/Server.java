@@ -27,8 +27,7 @@ public class Server
         c.start();
     }*/
     ServerSocket ss;
-    Socket so;
-    
+    Socket so; // socket apre la connessione con il client
     BufferedWriter bw; //write
     BufferedReader br; //read
     
@@ -39,7 +38,7 @@ public class Server
         {
             ss = new ServerSocket(porta);
             System.out.println("Server avviato in ascolto");
-            ss.setSoTimeout(3000);
+            //ss.setSoTimeout(3000);
             
         }
         catch (IOException ex) 
@@ -54,6 +53,12 @@ public class Server
         {
             so = ss.accept(); // tramite il metodo accept() si inizializza la connessione tra server e client
             System.out.println("Connessione stabilita");
+            // create a new thread object
+            ClientHandler clientSock = new ClientHandler(so);
+  
+            // This thread will handle the client
+            // separately
+            new Thread(clientSock).start();
         } 
         catch (IOException ex) 
         {
